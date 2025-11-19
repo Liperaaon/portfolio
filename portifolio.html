@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page_title">PrimeStudios | Soluções de Automação e Web</title>
+    <!-- Incluindo Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ocean: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                            950: '#020617', // Fundo base ultra escuro
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #020617; /* Slate 950 modificado para tom oceânico */
+            color: #e2e8f0; /* Texto claro e legível */
+            scroll-behavior: smooth;
+        }
+        
+        /* Gradiente Oceânico Profissional */
+        .text-gradient {
+            background-image: linear-gradient(to right, #2dd4bf, #3b82f6); /* Teal 400 to Blue 500 */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        /* Cartões com efeito de vidro sutil */
+        .card-minimal {
+            background-color: rgba(15, 23, 42, 0.6); /* Slate 900 com transparência */
+            border: 1px solid rgba(45, 212, 191, 0.1); /* Borda teal sutil */
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .card-minimal:hover {
+            border-color: #2dd4bf; /* Teal vibrante no hover */
+            background-color: rgba(15, 23, 42, 0.9);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px -10px rgba(45, 212, 191, 0.15);
+        }
+
+        .cta-button {
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(45, 212, 191, 0.3);
+        }
+        
+        /* Scrollbar personalizada */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020617;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2dd4bf;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-teal-500 selection:text-white">
+
+    <!-- Navbar -->
+    <header class="sticky top-0 z-50 bg-[#020617]/80 backdrop-blur-md border-b border-white/10">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="text-2xl font-extrabold text-white tracking-tight cursor-pointer" onclick="window.scrollTo(0,0)">
+                <span class="text-gradient">Prime</span>Studios
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center text-sm font-medium">
+                <a href="#sobremim" class="text-gray-300 hover:text-teal-400 transition-colors duration-300" data-i18n="nav_about">Sobre Mim</a>
+                <a href="#servicos" class="text-gray-300 hover:text-teal-400 transition-colors duration-300" data-i18n="nav_services">Serviços</a>
+                <a href="#portfolio" class="text-gray-300 hover:text-teal-400 transition-colors duration-300" data-i18n="nav_portfolio">Projetos</a>
+                <a href="#contato" class="text-gray-300 hover:text-teal-400 transition-colors duration-300" data-i18n="nav_contact">Contato</a>
+                
+                <!-- Language Selector (Desktop) -->
+                <div class="relative">
+                    <select id="language-selector-desktop" class="bg-slate-900/50 border border-white/10 text-gray-300 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 p-1.5 pl-2 pr-8 appearance-none cursor-pointer hover:bg-slate-800 transition">
+                        <option value="pt">🇧🇷 PT</option>
+                        <option value="en">🇺🇸 EN</option>
+                        <option value="es">🇪🇸 ES</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
+                </div>
+
+                <a href="#contato" class="bg-teal-600 hover:bg-teal-500 text-white px-6 py-2.5 rounded-full font-semibold text-sm transition-all cta-button" data-i18n="nav_start_project">
+                    Inicie Seu Projeto
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-300 hover:text-teal-400 focus:outline-none p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#020617] border-t border-white/10 absolute w-full">
+            <a href="#sobremim" class="block px-6 py-4 text-base text-gray-300 hover:bg-slate-800/50 hover:text-teal-400 transition" data-i18n="nav_about">Sobre Mim</a>
+            <a href="#servicos" class="block px-6 py-4 text-base text-gray-300 hover:bg-slate-800/50 hover:text-teal-400 transition" data-i18n="nav_services">Serviços</a>
+            <a href="#portfolio" class="block px-6 py-4 text-base text-gray-300 hover:bg-slate-800/50 hover:text-teal-400 transition" data-i18n="nav_portfolio">Projetos</a>
+            <a href="#contato" class="block px-6 py-4 text-base text-gray-300 hover:bg-slate-800/50 hover:text-teal-400 transition" data-i18n="nav_contact">Contato</a>
+            
+            <div class="px-6 py-4 border-t border-white/10 bg-slate-900/30">
+                <select id="language-selector-mobile" class="w-full bg-slate-800 border border-white/10 text-gray-300 text-base rounded-lg focus:ring-teal-500 focus:border-teal-500 p-3">
+                    <option value="pt">🇧🇷 Português</option>
+                    <option value="en">🇺🇸 English</option>
+                    <option value="es">🇪🇸 Español</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative pt-24 pb-24 md:pt-36 md:pb-32 overflow-hidden">
+            <!-- Background Glow Effect -->
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
+                <div class="absolute top-[10%] left-[20%] w-96 h-96 bg-teal-500/10 rounded-full blur-3xl"></div>
+                <div class="absolute top-[20%] right-[20%] w-72 h-72 bg-blue-600/10 rounded-full blur-3xl"></div>
+            </div>
+
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="inline-block mb-6 px-4 py-1.5 rounded-full border border-teal-500/30 bg-teal-500/10 backdrop-blur-sm">
+                    <p class="text-sm font-semibold text-teal-300 tracking-wide uppercase" data-i18n="hero_tag">
+                        PrimeStudios | Automação e Presença Web (por Liperaon)
+                    </p>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-8 tracking-tight">
+                    <span data-i18n="hero_title_part1">Elevando Sua</span> <span class="text-gradient" data-i18n="hero_title_part2">Operação Digital</span> <br class="hidden md:block" /> <span data-i18n="hero_title_part3">ao Próximo Nível.</span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed" data-i18n="hero_subtitle">
+                    Desenvolvimento de sites profissionais, bots de automação no Telegram e soluções de Help Desk que garantem eficiência e suporte inigualáveis.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                    <a href="#contato" class="cta-button bg-teal-600 hover:bg-teal-500 text-white text-lg font-bold py-4 px-10 rounded-xl shadow-lg shadow-teal-500/20 w-full sm:w-auto" data-i18n="hero_cta_start">
+                        Começar Agora
+                    </a>
+                    <a href="#portfolio" class="cta-button bg-white/5 hover:bg-white/10 border border-white/10 text-white text-lg font-bold py-4 px-10 rounded-xl transition w-full sm:w-auto" data-i18n="hero_cta_view">
+                        Ver Projetos
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="sobremim" class="py-20 md:py-32 bg-[#030921] border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="md:flex md:space-x-16 items-center">
+                    
+                    <!-- Text Content (Right) -->
+                    <div class="md:w-1/2 mb-12 md:mb-0 order-2 md:order-1">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">
+                            <span data-i18n="about_title_part1">A Mente Por Trás da</span> <span class="text-gradient" data-i18n="about_title_part2">PrimeStudios</span>
+                        </h2>
+                        <h3 class="text-xl font-semibold text-teal-400 mb-6 flex items-center" data-i18n="about_subtitle">
+                            <span class="w-8 h-0.5 bg-teal-500 mr-3"></span> Olá, eu sou Felipe (Liperaon).
+                        </h3>
+                        
+                        <div class="space-y-6 text-gray-400 leading-relaxed text-lg">
+                            <p data-i18n="about_p1">
+                                Tenho 25 anos e sou formado em Análise e Desenvolvimento de Sistemas. Sou PCD, e essa vivência faz parte da minha identidade, reforçando minha determinação, empatia e dedicação em tudo o que faço. Sou movido por aprendizado e curiosidade, sempre explorando novas ferramentas para evoluir como profissional.
+                            </p>
+                            <p data-i18n="about_p2">
+                                Minha principal especialidade é a criação de sites — desde o visual até a estrutura completa. Gosto de transformar ideias em experiências digitais funcionais, modernas e acessíveis. Meu foco é unir design, desempenho e usabilidade para construir projetos que realmente entreguem valor.
+                            </p>
+                            <p data-i18n="about_p3">
+                                A PrimeStudios representa meu compromisso com a excelência técnica em automação, bots Telegram e suporte Help Desk. Aqui no meu portfólio, você encontrará projetos que representam meu estilo de trabalho. Se quiser desenvolver um site, colaborar em uma ideia ou simplesmente trocar uma ideia, será um prazer conversar!
+                            </p>
+                        </div>
+                        
+                        <a href="#portfolio" class="inline-flex items-center text-teal-400 font-bold hover:text-teal-300 mt-8 transition group" data-i18n="about_cta">
+                            Veja Minha Abordagem em Ação
+                            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+                    
+                    <!-- Skill/Focus Visual (Left) -->
+                    <div class="md:w-1/2 order-1 md:order-2 p-1">
+                        <div class="bg-gradient-to-br from-teal-500/20 to-blue-600/20 p-8 rounded-2xl border border-white/10 backdrop-blur-sm">
+                            <h4 class="text-lg font-bold text-white mb-6 border-b border-white/10 pb-4" data-i18n="skills_header">Minhas Habilidades Essenciais:</h4>
+                            <div class="space-y-6">
+                                <!-- Skill 1 -->
+                                <div class="flex items-start space-x-4">
+                                    <div class="p-2 bg-teal-500/10 rounded-lg text-teal-400">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-white font-medium text-lg" data-i18n="skill1_title">Desenvolvimento Web Full-Stack</p>
+                                        <p class="text-sm text-gray-400 mt-1" data-i18n="skill1_desc">HTML, CSS (Tailwind), JavaScript, Frameworks Modernos.</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Skill 2 -->
+                                <div class="flex items-start space-x-4">
+                                    <div class="p-2 bg-teal-500/10 rounded-lg text-teal-400">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.693a9.76 9.76 0 01-1.346-4.307C1 7.11 4.03 4 9 4h12a2 2 0 012 2v6z"></path></svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-white font-medium text-lg" data-i18n="skill2_title">Automação e Bots (Telegram)</p>
+                                        <p class="text-sm text-gray-400 mt-1" data-i18n="skill2_desc">Integração de APIs, lógica de conversação e escalabilidade.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Skill 3 -->
+                                <div class="flex items-start space-x-4">
+                                    <div class="p-2 bg-teal-500/10 rounded-lg text-teal-400">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2v2m0 0V4m0 16a9 9 0 100-18 9 9 0 000 18z"></path></svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-white font-medium text-lg" data-i18n="skill3_title">Otimização de Processos</p>
+                                        <p class="text-sm text-gray-400 mt-1" data-i18n="skill3_desc">Análise de fluxo de trabalho e implementação de eficiência.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="servicos" class="py-20 md:py-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-4 text-white">
+                        <span data-i18n="services_title_part1">Nossos</span> <span class="text-gradient" data-i18n="services_title_part2">Serviços Focados</span>
+                    </h2>
+                    <p class="text-gray-400 text-lg max-w-2xl mx-auto" data-i18n="services_subtitle">
+                        Foco em performance, automação e suporte contínuo para resultados reais.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Service Card 1 -->
+                    <div class="card-minimal p-8 rounded-2xl">
+                        <div class="w-14 h-14 bg-teal-500/10 rounded-xl flex items-center justify-center mb-6 text-teal-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-white" data-i18n="service1_title">Sites de Alta Conversão</h3>
+                        <p class="text-gray-400 mb-6 leading-relaxed" data-i18n="service1_desc">Desenvolvimento de presença web rápida, otimizada para SEO e responsiva. Focada em trazer clientes para você.</p>
+                        <a href="#contato" class="text-teal-400 font-semibold hover:text-teal-300 flex items-center group" data-i18n="service_link">
+                            Saiba Mais
+                            <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+                    
+                    <!-- Service Card 2 -->
+                    <div class="card-minimal p-8 rounded-2xl">
+                        <div class="w-14 h-14 bg-teal-500/10 rounded-xl flex items-center justify-center mb-6 text-teal-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.693a9.76 9.76 0 01-1.346-4.307C1 7.11 4.03 4 9 4h12a2 2 0 012 2v6z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-white" data-i18n="service2_title">Automação com Bots Telegram</h3>
+                        <p class="text-gray-400 mb-6 leading-relaxed" data-i18n="service2_desc">Bots para atendimento, gestão de grupos, e ferramentas de BI. Reduza custos e escale seu suporte com IA.</p>
+                        <a href="#contato" class="text-teal-400 font-semibold hover:text-teal-300 flex items-center group" data-i18n="service_link">
+                            Saiba Mais
+                            <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+                    
+                    <!-- Service Card 3 -->
+                    <div class="card-minimal p-8 rounded-2xl">
+                        <div class="w-14 h-14 bg-teal-500/10 rounded-xl flex items-center justify-center mb-6 text-teal-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 0l-3.536 3.536m3.536-3.536L5.636 18.364M5.636 5.636l3.536 3.536m0 0l3.536 3.536m-3.536-3.536L18.364 18.364M12 10a2 2 0 100-4 2 2 0 000 4z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-white" data-i18n="service3_title">Implementação de Help Desk</h3>
+                        <p class="text-gray-400 mb-6 leading-relaxed" data-i18n="service3_desc">Configuração e manutenção de sistemas de tickets (Zendesk, Freshdesk, etc.) para um suporte organizado e escalável.</p>
+                        <a href="#contato" class="text-teal-400 font-semibold hover:text-teal-300 flex items-center group" data-i18n="service_link">
+                            Saiba Mais
+                            <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="py-20 md:py-32 bg-[#030921] border-t border-b border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-4 text-white">
+                        <span data-i18n="portfolio_title_part1">Projetos de</span> <span class="text-gradient" data-i18n="portfolio_title_part2">Destaque</span>
+                    </h2>
+                    <p class="text-center text-gray-400 text-lg max-w-2xl mx-auto" data-i18n="portfolio_subtitle">
+                        Soluções técnicas robustas desenvolvidas com foco em performance e usabilidade.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Project 1 -->
+                    <div class="card-minimal rounded-2xl overflow-hidden group">
+                        <div class="p-8">
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 class="text-2xl font-bold text-white group-hover:text-teal-400 transition-colors" data-i18n="port1_title">Nexus ERP - Gestão Empresarial</h3>
+                                <div class="p-2 bg-white/5 rounded-lg">
+                                    <svg class="w-6 h-6 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                                </div>
+                            </div>
+                            <p class="text-teal-400 text-xs font-semibold tracking-wider uppercase mb-4" data-i18n="port1_tags">#WebSystem #React #NodeJS</p>
+                            <p class="text-gray-400 leading-relaxed" data-i18n="port1_desc">Sistema web completo para gestão de pequenas empresas. Controle de estoque, financeiro e emissão de notas fiscais em uma interface intuitiva.</p>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="card-minimal rounded-2xl overflow-hidden group">
+                        <div class="p-8">
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 class="text-2xl font-bold text-white group-hover:text-teal-400 transition-colors" data-i18n="port2_title">AutoLead - Captação de Leads</h3>
+                                <div class="p-2 bg-white/5 rounded-lg">
+                                    <svg class="w-6 h-6 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                                </div>
+                            </div>
+                            <p class="text-teal-400 text-xs font-semibold tracking-wider uppercase mb-4" data-i18n="port2_tags">#Automação #Python #Marketing</p>
+                            <p class="text-gray-400 leading-relaxed" data-i18n="port2_desc">Bot de automação que varre redes sociais em busca de potenciais clientes, qualifica os leads e envia para o CRM da empresa automaticamente.</p>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="card-minimal rounded-2xl overflow-hidden group">
+                        <div class="p-8">
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 class="text-2xl font-bold text-white group-hover:text-teal-400 transition-colors" data-i18n="port3_title">Urban Flow - App de Mobilidade</h3>
+                                <div class="p-2 bg-white/5 rounded-lg">
+                                    <svg class="w-6 h-6 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                                </div>
+                            </div>
+                            <p class="text-teal-400 text-xs font-semibold tracking-wider uppercase mb-4" data-i18n="port3_tags">#AppMobile #Flutter #API</p>
+                            <p class="text-gray-400 leading-relaxed" data-i18n="port3_desc">Aplicativo conceito para mobilidade urbana focado em caronas corporativas, com cálculo de rotas otimizadas e divisão de custos integrada.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="py-20 bg-teal-900/10 relative overflow-hidden">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6" data-i18n="mid_cta_title">
+                    Transforme sua ideia em código rodando.
+                </h2>
+                <p class="text-teal-200/80 text-lg mb-10 max-w-2xl mx-auto leading-relaxed" data-i18n="mid_cta_subtitle">
+                    Não perca tempo com soluções genéricas. Fale com a PrimeStudios e obtenha uma solução sob medida.
+                </p>
+                <a href="#contato" class="cta-button bg-teal-600 hover:bg-teal-500 text-white font-bold py-4 px-10 rounded-xl text-lg shadow-xl shadow-teal-500/30 inline-block" data-i18n="mid_cta_button">
+                    Solicite seu Orçamento Gratuito
+                </a>
+            </div>
+        </section>
+
+
+        <!-- Contact Section -->
+        <section id="contato" class="py-20 md:py-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold mb-4 text-white">
+                        <span data-i18n="contact_title_part1">Vamos</span> <span class="text-gradient" data-i18n="contact_title_part2">Conversar</span>
+                    </h2>
+                    <p class="text-gray-400 text-lg max-w-2xl mx-auto" data-i18n="contact_subtitle">
+                        Use os links abaixo para contato direto e imediato.
+                    </p>
+                </div>
+                
+                <!-- Buttons Container -->
+                <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-12 max-w-4xl mx-auto">
+                    
+                    <!-- Botão WhatsApp -->
+                    <a href="https://wa.me/5511980125144" target="_blank" class="w-full md:w-1/3 flex items-center justify-center p-5 rounded-xl font-bold text-lg bg-[#25D366] hover:bg-[#1da851] text-white transition cta-button shadow-lg shadow-green-900/20">
+                        <svg class="w-7 h-7 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                        <span data-i18n="contact_whatsapp">WhatsApp</span>
+                    </a>
+                    
+                    <!-- Botão Email -->
+                    <a href="mailto:felipe_mx@hotmail.com" class="w-full md:w-1/3 flex items-center justify-center p-5 rounded-xl font-bold text-lg bg-teal-600 hover:bg-teal-500 text-white transition cta-button shadow-lg shadow-teal-900/20">
+                        <!-- Mail Icon -->
+                        <svg class="w-7 h-7 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.848 5.232a1 1 0 001.296 0L21 8"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 19H5a2 2 0 01-2-2V7a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2z"></path></svg>
+                        <span data-i18n="contact_email_btn">E-mail</span>
+                    </a>
+                    
+                    <!-- Botão Discord -->
+                    <a href="https://discordapp.com/users/667066502121259027" target="_blank" class="w-full md:w-1/3 flex items-center justify-center p-5 rounded-xl font-bold text-lg bg-[#5865F2] hover:bg-[#4752C4] text-white transition cta-button shadow-lg shadow-indigo-900/20">
+                        <svg class="w-7 h-7 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.419-2.1568 2.419zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.419-2.1568 2.419z"/></svg>
+                        <span data-i18n="contact_discord">Discord</span>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Refined -->
+    <footer class="bg-[#020617] border-t border-white/10 pt-16 pb-8 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                
+                <!-- Column 1: Brand & About -->
+                <div>
+                    <div class="text-2xl font-extrabold text-white mb-6">
+                        <span class="text-gradient">Prime</span>Studios
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Transformamos ideias em soluções digitais de alto impacto. Especialistas em automação, web design e sistemas inteligentes.
+                    </p>
+                    <div class="flex space-x-4">
+                        <!-- Social Icons -->
+                        <a href="https://www.linkedin.com/in/felipe-augusto-14bb3b180" target="_blank" title="LinkedIn" class="text-gray-500 hover:text-teal-400 transition transform hover:scale-110">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.366-4-3.297-4 0v5.604h-3v-11h3v1.765c1.397-2.678 6-2.502 6 2.569v6.666z"/></svg>
+                        </a>
+                        <a href="#" title="GitHub" class="text-gray-500 hover:text-teal-400 transition transform hover:scale-110">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.311 3.437 9.8 8.204 11.385.6.113.82-.262.82-.578 0-.285-.01-1.042-.015-2.043-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.332-1.757-1.332-1.757-1.089-.745.083-.73.083-.73 1.205.084 1.838 1.237 1.838 1.237 1.07 1.833 2.81 1.304 3.493.996.108-.775.42-1.304.762-1.602-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.229-3.22-.124-.303-.537-1.523.117-3.176 0 0 1.002-.322 3.287 1.216a11.536 11.536 0 016.096 0c2.285-1.537 3.287-1.216 3.287-1.216.654 1.653.24 2.873.117 3.176.766.84 1.229 1.91 1.229 3.22 0 4.61-2.802 5.624-5.474 5.923.431.37.823 1.107.823 2.228 0 1.605-.015 2.899-.015 3.28 0 .318.216.696.824.577C20.564 21.801 24 17.314 24 12 24 5.373 18.627 0 12 0z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div>
+                    <h4 class="text-white font-semibold mb-6 border-l-2 border-teal-500 pl-3">Navegação</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#sobremim" class="text-gray-400 hover:text-teal-400 transition-colors">Sobre Mim</a></li>
+                        <li><a href="#portfolio" class="text-gray-400 hover:text-teal-400 transition-colors">Projetos</a></li>
+                        <li><a href="#servicos" class="text-gray-400 hover:text-teal-400 transition-colors">Serviços</a></li>
+                        <li><a href="#contato" class="text-gray-400 hover:text-teal-400 transition-colors">Contato</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Services -->
+                <div>
+                    <h4 class="text-white font-semibold mb-6 border-l-2 border-teal-500 pl-3">Serviços</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-teal-400 transition-colors">Desenvolvimento Web</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-teal-400 transition-colors">Bots & Automação</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-teal-400 transition-colors">Sistemas Help Desk</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-teal-400 transition-colors">Consultoria Técnica</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Newsletter -->
+                <div>
+                    <h4 class="text-white font-semibold mb-6 border-l-2 border-teal-500 pl-3">Fique Atualizado</h4>
+                    <p class="text-gray-400 text-sm mb-4">Receba novidades e ofertas exclusivas diretamente no seu e-mail.</p>
+                    <form onsubmit="event.preventDefault();" class="space-y-3">
+                        <input type="email" placeholder="Seu e-mail" class="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-sm text-white focus:outline-none focus:border-teal-500 transition-colors">
+                        <button class="w-full px-4 py-2.5 bg-teal-600 hover:bg-teal-500 text-white text-sm font-semibold rounded-lg transition-colors">
+                            Inscrever-se
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <p>&copy; <span id="current-year"></span> <span data-i18n="footer_text">PrimeStudios. Soluções de Automação e Web por Liperaon.</span></p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-teal-400 transition-colors">Política de Privacidade</a>
+                    <a href="#" class="hover:text-teal-400 transition-colors">Termos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- INTERNATIONALIZATION (i18n) DATA ---
+        const translations = {
+            'pt': {
+                page_title: "PrimeStudios | Soluções de Automação e Web",
+                nav_about: "Sobre Mim",
+                nav_services: "Serviços",
+                nav_portfolio: "Projetos",
+                nav_contact: "Contato",
+                nav_start_project: "Inicie Seu Projeto",
+                hero_tag: "PrimeStudios | Automação e Presença Web (por Liperaon)",
+                hero_title_part1: "Elevando Sua",
+                hero_title_part2: "Operação Digital",
+                hero_title_part3: "ao Próximo Nível.",
+                hero_subtitle: "Desenvolvimento de sites profissionais, bots de automação no Telegram e soluções de Help Desk que garantem eficiência e suporte inigualáveis.",
+                hero_cta_start: "Começar Agora",
+                hero_cta_view: "Ver Projetos",
+                about_title_part1: "A Mente Por Trás da",
+                about_title_part2: "PrimeStudios",
+                about_subtitle: "Olá, eu sou Felipe (Liperaon).",
+                about_p1: "Tenho 25 anos e sou formado em Análise e Desenvolvimento de Sistemas. Sou PCD, e essa vivência faz parte da minha identidade, reforçando minha determinação, empatia e dedicação em tudo o que faço. Sou movido por aprendizado e curiosidade, sempre explorando novas ferramentas para evoluir como profissional.",
+                about_p2: "Minha principal especialidade é a criação de sites — desde o visual até a estrutura completa. Gosto de transformar ideias em experiências digitais funcionais, modernas e acessíveis. Meu foco é unir design, desempenho e usabilidade para construir projetos que realmente entreguem valor.",
+                about_p3: "A PrimeStudios representa meu compromisso com a excelência técnica em automação, bots Telegram e suporte Help Desk. Aqui no meu portfólio, você encontrará projetos que representam meu estilo de trabalho. Se quiser desenvolver um site, colaborar em uma ideia ou simplesmente trocar uma ideia, será um prazer conversar!",
+                about_cta: "Veja Minha Abordagem em Ação",
+                skills_header: "Minhas Habilidades Essenciais:",
+                skill1_title: "Desenvolvimento Web Full-Stack",
+                skill1_desc: "HTML, CSS (Tailwind), JavaScript, Frameworks Modernos.",
+                skill2_title: "Automação e Bots (Telegram)",
+                skill2_desc: "Integração de APIs, lógica de conversação e escalabilidade.",
+                skill3_title: "Otimização de Processos",
+                skill3_desc: "Análise de fluxo de trabalho e implementação de eficiência.",
+                services_title_part1: "Nossos",
+                services_title_part2: "Serviços Focados",
+                services_subtitle: "Foco em performance, automação e suporte contínuo para resultados reais.",
+                service1_title: "Sites de Alta Conversão",
+                service1_desc: "Desenvolvimento de presença web rápida, otimizada para SEO e responsiva. Focada em trazer clientes para você.",
+                service2_title: "Automação com Bots Telegram",
+                service2_desc: "Bots para atendimento, gestão de grupos, e ferramentas de BI. Reduza custos e escale seu suporte com IA.",
+                service3_title: "Implementação de Help Desk",
+                service3_desc: "Configuração e manutenção de sistemas de tickets (Zendesk, Freshdesk, etc.) para um suporte organizado e escalável.",
+                service_link: "Saiba Mais",
+                portfolio_title_part1: "Projetos de",
+                portfolio_title_part2: "Destaque",
+                portfolio_subtitle: "Visão minimalista de alguns dos nossos trabalhos mais recentes e impactantes.",
+                port1_title: "Nexus ERP - Gestão Empresarial",
+                port1_tags: "#WebSystem #React #NodeJS",
+                port1_desc: "Sistema web completo para gestão de pequenas empresas. Controle de estoque, financeiro e emissão de notas fiscais em uma interface intuitiva.",
+                port2_title: "AutoLead - Captação de Leads",
+                port2_tags: "#Automação #Python #Marketing",
+                port2_desc: "Bot de automação que varre redes sociais em busca de potenciais clientes, qualifica os leads e envia para o CRM da empresa automaticamente.",
+                port3_title: "Urban Flow - App de Mobilidade",
+                port3_tags: "#AppMobile #Flutter #API",
+                port3_desc: "Aplicativo conceito para mobilidade urbana focado em caronas corporativas, com cálculo de rotas otimizadas e divisão de custos integrada.",
+                mid_cta_title: "Transforme sua ideia em código rodando.",
+                mid_cta_subtitle: "Não perca tempo com soluções genéricas. Fale com a PrimeStudios e obtenha uma solução sob medida.",
+                mid_cta_button: "Solicite seu Orçamento Gratuito",
+                contact_title_part1: "Vamos",
+                contact_title_part2: "Conversar",
+                contact_subtitle: "Use os links abaixo para contato direto e imediato.",
+                contact_whatsapp: "WhatsApp",
+                contact_email_btn: "E-mail",
+                contact_discord: "Discord",
+                footer_text: "PrimeStudios. Soluções de Automação e Web por Liperaon.",
+            },
+            'en': {
+                page_title: "PrimeStudios | Automation & Web Solutions",
+                nav_about: "About Me",
+                nav_services: "Services",
+                nav_portfolio: "Projects",
+                nav_contact: "Contact",
+                nav_start_project: "Start Your Project",
+                hero_tag: "PrimeStudios | Automation & Web Presence (by Liperaon)",
+                hero_title_part1: "Elevating Your",
+                hero_title_part2: "Digital Operation",
+                hero_title_part3: "to the Next Level.",
+                hero_subtitle: "Development of professional websites, Telegram automation bots, and Help Desk solutions that ensure unrivaled efficiency and support.",
+                hero_cta_start: "Get Started Now",
+                hero_cta_view: "View Projects",
+                about_title_part1: "The Mind Behind",
+                about_title_part2: "PrimeStudios",
+                about_subtitle: "Hello, I'm Felipe (Liperaon).",
+                about_p1: "I am 25 years old and hold a degree in Systems Analysis and Development. I am a person with a disability (PWD), and this experience is part of my identity, reinforcing my determination, empathy, and dedication in everything I do. I am driven by learning and curiosity, always exploring new tools to evolve as a professional.",
+                about_p2: "My main specialty is creating websites—from the visual design to the complete structure. I enjoy transforming ideas into functional, modern, and accessible digital experiences. My focus is on combining design, performance, and usability to build projects that truly deliver value.",
+                about_p3: "PrimeStudios represents my commitment to technical excellence in automation, Telegram bots, and Help Desk support. In my portfolio, you will find projects that represent my work style. If you want to develop a website, collaborate on an idea, or simply share thoughts, I would be pleased to talk!",
+                about_cta: "See My Approach in Action",
+                skills_header: "My Essential Skills:",
+                skill1_title: "Full-Stack Web Development",
+                skill1_desc: "HTML, CSS (Tailwind), JavaScript, Modern Frameworks.",
+                skill2_title: "Automation & Bots (Telegram)",
+                skill2_desc: "API Integration, conversational logic, and scalability.",
+                skill3_title: "Process Optimization",
+                skill3_desc: "Workflow analysis and efficiency implementation.",
+                services_title_part1: "Our",
+                services_title_part2: "Focused Services",
+                services_subtitle: "Focus on performance, automation, and continuous support for real results.",
+                service1_title: "High-Conversion Websites",
+                service1_desc: "Development of fast, SEO-optimized, and responsive web presence. Focused on bringing customers to you.",
+                service2_title: "Automation with Telegram Bots",
+                service2_desc: "Bots for customer service, group management, and BI tools. Reduce costs and scale your support with AI.",
+                service3_title: "Help Desk Implementation",
+                service3_desc: "Configuration and maintenance of ticket systems (Zendesk, Freshdesk, etc.) for organized and scalable support.",
+                service_link: "Find Out More",
+                portfolio_title_part1: "Featured",
+                portfolio_title_part2: "Projects",
+                portfolio_subtitle: "A minimalist view of some of our most recent and impactful work.",
+                port1_title: "Nexus ERP - Business Management",
+                port1_tags: "#WebSystem #React #NodeJS",
+                port1_desc: "Complete web system for small business management. Stock control, financial, and invoice issuance in an intuitive interface.",
+                port2_title: "AutoLead - Lead Capture",
+                port2_tags: "#Automation #Python #Marketing",
+                port2_desc: "Automation bot that scans social networks for potential clients, qualifies leads, and sends them to the company's CRM automatically.",
+                port3_title: "Urban Flow - Mobility App",
+                port3_tags: "#AppMobile #Flutter #API",
+                port3_desc: "Concept app for urban mobility focused on corporate carpooling, with optimized route calculation and integrated cost splitting.",
+                mid_cta_title: "Turn your idea into running code.",
+                mid_cta_subtitle: "Don't waste time with generic solutions. Talk to PrimeStudios and get a custom-made solution.",
+                mid_cta_button: "Request Your Free Quote",
+                contact_title_part1: "Let's",
+                contact_title_part2: "Talk",
+                contact_subtitle: "Use the links below for direct and immediate contact.",
+                contact_whatsapp: "WhatsApp",
+                contact_email_btn: "Send Email",
+                contact_discord: "Discord",
+                footer_text: "PrimeStudios. Automation and Web Solutions by Liperaon.",
+            },
+            'es': {
+                page_title: "PrimeStudios | Soluciones Web y Automatización",
+                nav_about: "Sobre Mí",
+                nav_services: "Servicios",
+                nav_portfolio: "Proyectos",
+                nav_contact: "Contacto",
+                nav_start_project: "Inicie Su Proyecto",
+                hero_tag: "PrimeStudios | Automatización y Presencia Web (por Liperaon)",
+                hero_title_part1: "Elevando Su",
+                hero_title_part2: "Operación Digital",
+                hero_title_part3: "al Siguiente Nivel.",
+                hero_subtitle: "Desarrollo de sitios web profesionales, bots de automatización de Telegram y soluciones de Help Desk que aseguran una eficiencia y soporte inigualables.",
+                hero_cta_start: "Empezar Ahora",
+                hero_cta_view: "Ver Proyectos",
+                about_title_part1: "La Mente Detrás de",
+                about_title_part2: "PrimeStudios",
+                about_subtitle: "Hola, soy Felipe (Liperaon).",
+                about_p1: "Tengo 25 años y soy graduado en Análisis y Desarrollo de Sistemas. Soy persona con discapacidad (PCD), y esta vivencia forma parte de mi identidad, reforçando mi determinación, empatía y dedicación en todo lo que hago. Me mueve el aprendizaje y la curiosidad, siempre explorando nuevas herramientas para evolucionar como profesional.",
+                about_p2: "Mi principal especialidad es la creación de sitios web — desde el diseño visual hasta la estructura completa. Me gusta transformar ideas en experiencias digitales funcionales, modernas y accesibles. Mi enfoque es unir diseño, rendimiento y usabilidad para construir proyectos que realmente aporten valor.",
+                about_p3: "PrimeStudios representa mi compromiso con la excelencia técnica en automatización, bots de Telegram y soporte de Help Desk. Aquí en mi portafolio, encontrará proyectos que representan mi estilo de trabajo. Si desea desarrollar un sitio web, colaborar en una idea o simplemente intercambiar opiniones, ¡será un placer conversar!",
+                about_cta: "Vea Mi Enfoque en Acción",
+                skills_header: "Mis Habilidades Esenciales:",
+                skill1_title: "Desarrollo Web Full-Stack",
+                skill1_desc: "HTML, CSS (Tailwind), JavaScript, Frameworks Modernos.",
+                skill2_title: "Automatización y Bots (Telegram)",
+                skill2_desc: "Integración de API, lógica conversacional y escalabilidad.",
+                skill3_title: "Optimización de Procesos",
+                skill3_desc: "Análisis de flujo de trabajo e implementación de eficiencia.",
+                services_title_part1: "Nuestros",
+                services_title_part2: "Servicios Enfocados",
+                services_subtitle: "Enfoque en rendimiento, automatización y soporte continuo para resultados reales.",
+                service1_title: "Sitios Web de Alta Conversión",
+                service1_desc: "Desarrollo de presencia web rápida, optimizada para SEO y responsiva. Centrada en atraer clientes hacia usted.",
+                service2_title: "Automatización con Bots de Telegram",
+                service2_desc: "Bots para atención al cliente, gestión de grupos y herramientas de BI. Reduzca costos y escale su soporte con IA.",
+                service3_title: "Implementación de Help Desk",
+                service3_desc: "Configuración y mantenimiento de sistemas de tickets (Zendesk, Freshdesk, etc.) para un soporte organizado y escalable.",
+                service_link: "Saber Más",
+                portfolio_title_part1: "Proyectos",
+                portfolio_title_part2: "Destacados",
+                portfolio_subtitle: "Una vista minimalista de algunos de nuestros trabajos más recientes e impactantes.",
+                port1_title: "Nexus ERP - Gestión Empresarial",
+                port1_tags: "#WebSystem #React #NodeJS",
+                port1_desc: "Sistema web completo para gestión de pequeñas empresas. Control de inventario, financiero y emisión de facturas en una interfaz intuitiva.",
+                port2_title: "AutoLead - Captación de Leads",
+                port2_tags: "#Automatización #Python #Marketing",
+                port2_desc: "Bot de automação que escanea redes sociales en busca de clientes potenciales, califica los leads y los envía al CRM de la empresa automáticamente.",
+                port3_title: "Urban Flow - App de Movilidad",
+                port3_tags: "#AppMobile #Flutter #API",
+                port3_desc: "Aplicación concepto para movilidad urbana enfocada en viajes corporativos compartidos, con cálculo de rutas optimizadas y división de costos integrada.",
+                mid_cta_title: "Convierta su idea en código en funcionamiento.",
+                mid_cta_subtitle: "No pierda tiempo con soluciones genéricas. Hable con PrimeStudios y obtenga una solución a medida.",
+                mid_cta_button: "Solicite Su Presupuesto Gratuito",
+                contact_title_part1: "Hablemos",
+                contact_title_part2: "Ahora",
+                contact_subtitle: "Use los enlaces a continuación para contacto directo e inmediato.",
+                contact_whatsapp: "WhatsApp",
+                contact_email_btn: "Enviar Correo",
+                contact_discord: "Discord",
+                footer_text: "PrimeStudios. Soluciones Web y Automatización por Liperaon.",
+            }
+        };
+
+        // --- INTERNATIONALIZATION (i18n) LOGIC ---
+        function setLanguage(lang) {
+            // Safety check for translations object
+            if (typeof translations === 'undefined') {
+                console.error("Translations object is undefined!");
+                return;
+            }
+
+            // Update HTML lang attribute
+            if (document.documentElement) {
+                document.documentElement.lang = lang;
+            }
+
+            // Update text content (data-i18n)
+            const i18nElements = document.querySelectorAll('[data-i18n]');
+            if (i18nElements) {
+                i18nElements.forEach(element => {
+                    const key = element.getAttribute('data-i18n');
+                    if (element && translations[lang] && translations[lang][key]) {
+                        element.textContent = translations[lang][key];
+                    }
+                });
+            }
+
+            // Update placeholders (data-i18n-placeholder)
+            const placeholderElements = document.querySelectorAll('[data-i18n-placeholder]');
+            if (placeholderElements) {
+                placeholderElements.forEach(element => {
+                    const key = element.getAttribute('data-i18n-placeholder');
+                    if (translations[lang] && translations[lang][key]) {
+                        element.placeholder = translations[lang][key];
+                    }
+                });
+            }
+
+            // Special case for select options (if any were remaining, e.g. for future use)
+            const serviceSelect = document.getElementById('servico');
+            if (serviceSelect && serviceSelect.options) {
+                Array.from(serviceSelect.options).forEach(option => {
+                    const key = option.getAttribute('data-i18n');
+                    // Check if key exists and if the key is not one of the hardcoded language options (which now include flags)
+                    if (key && translations[lang] && translations[lang][key]) {
+                        option.textContent = translations[lang][key];
+                    }
+                });
+            }
+
+            // Update title
+            if (translations[lang] && translations[lang]['page_title']) {
+                document.title = translations[lang]['page_title'];
+            }
+            
+            // Save preference to localStorage
+            try {
+                localStorage.setItem('preferredLanguage', lang);
+            } catch (e) {
+                console.warn("Could not save language preference to localStorage", e);
+            }
+        }
+
+        // Initialize language
+        document.addEventListener('DOMContentLoaded', () => {
+            // Default to 'pt' if localStorage fails or is empty
+            let storedLang = 'pt';
+            try {
+                storedLang = localStorage.getItem('preferredLanguage') || 'pt';
+            } catch (e) {
+                console.warn("Could not access localStorage", e);
+            }
+            
+            // Set initial value for both selectors
+            const desktopSelector = document.getElementById('language-selector-desktop');
+            const mobileSelector = document.getElementById('language-selector-mobile');
+            
+            if (desktopSelector) {
+                desktopSelector.value = storedLang;
+                desktopSelector.addEventListener('change', (e) => {
+                    const newLang = e.target.value;
+                    if (mobileSelector) mobileSelector.value = newLang;
+                    setLanguage(newLang);
+                });
+            }
+            
+            if (mobileSelector) {
+                mobileSelector.value = storedLang;
+                 mobileSelector.addEventListener('change', (e) => {
+                    const newLang = e.target.value;
+                    if (desktopSelector) desktopSelector.value = newLang;
+                    setLanguage(newLang);
+                });
+            }
+
+            // Initial language set
+            setLanguage(storedLang);
+
+            // --- GENERAL SCRIPTS ---
+
+            // Set current year in footer
+            const yearSpan = document.getElementById('current-year');
+            if(yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+
+            // Mobile Menu Toggle Logic
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // Simple smooth scrolling for navigation links
+            const navLinks = document.querySelectorAll('a[href^="#"]');
+            if (navLinks) {
+                navLinks.forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        if (mobileMenu) mobileMenu.classList.add('hidden'); // Close menu on mobile click
+                        const targetId = this.getAttribute('href');
+                        try {
+                            const targetElement = document.querySelector(targetId);
+                            if (targetElement) {
+                                targetElement.scrollIntoView({
+                                    behavior: 'smooth'
+                                });
+                            }
+                        } catch (e) {
+                            console.warn("Could not scroll to target", e);
+                        }
+                    });
+                });
+            }
+        });
+        
+    </script>
+</body>
+</html>
